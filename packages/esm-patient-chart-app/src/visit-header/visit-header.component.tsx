@@ -50,6 +50,7 @@ const PatientInfo: React.FC<PatientInfoProps> = ({ patient }) => {
   const patientNameIsTooLong = !isTablet && name.trim().length > 25;
   const { currentVisit } = useVisit(patientUuid);
   const { queueEntry } = useVisitQueueEntry(patientUuid, currentVisit?.uuid);
+  const { headerStyle } = useConfig();
 
   const visitType = queueEntry?.visitType ?? '';
   const priority = queueEntry?.priority ?? '';
@@ -90,10 +91,12 @@ const PatientInfo: React.FC<PatientInfoProps> = ({ patient }) => {
           </button>
         </Tooltip>
       ) : (
-        <span className={styles.patientName}>{name} </span>
+        <span className={styles.patientName} style={headerStyle?.patientName ? { color: headerStyle.patientName } : {}}>
+          {name}
+        </span>
       )}
 
-      <span className={styles.patientInfo}>
+      <span className={styles.patientInfo} style={headerStyle?.patientInfo ? { color: headerStyle.patientInfo } : {}}>
         {patient?.birthDate ? `${age(patient.birthDate)}, ` : ''}
         {patient?.gender ? getGender(patient.gender) : ''}
       </span>
@@ -101,9 +104,19 @@ const PatientInfo: React.FC<PatientInfoProps> = ({ patient }) => {
       {queueEntry && (
         <>
           <div className={styles.navDivider} />
-          <span className={styles.patientInfo}>{getServiceString()}</span>
+          <span
+            className={styles.patientInfo}
+            style={headerStyle?.patientInfo ? { color: headerStyle.patientInfo } : {}}
+          >
+            {getServiceString()}
+          </span>
           <div className={styles.navDivider} />
-          <span className={styles.patientInfo}>{visitType}</span>
+          <span
+            className={styles.patientInfo}
+            style={headerStyle?.patientInfo ? { color: headerStyle.patientInfo } : {}}
+          >
+            {visitType}
+          </span>
           <Tag
             className={priority === 'Priority' ? styles.priorityTag : styles.tag}
             type={getTagType(priority?.toLocaleLowerCase('en'))}
@@ -126,7 +139,7 @@ const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
   const { currentVisit, currentVisitIsRetrospective, isLoading } = useVisit(patient?.id);
   const [isSideMenuExpanded, setIsSideMenuExpanded] = useState(false);
   const navMenuItems = useAssignedExtensions('patient-chart-dashboard-slot').map((extension) => extension.id);
-  const { logo } = useConfig();
+  const { logo, headerStyle } = useConfig();
   const { systemVisitEnabled } = useSystemVisitSetting();
   const isTablet = useLayoutType() === 'tablet';
 
@@ -147,12 +160,17 @@ const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
   const isDeceased = Boolean(patient?.deceasedDateTime);
 
   return (
-    <Header aria-label="OpenMRS" className={styles.topNavHeader}>
+    <Header
+      aria-label="OpenMRS"
+      className={styles.topNavHeader}
+      style={headerStyle?.backgroundColor ? { backgroundColor: headerStyle.backgroundColor } : ''}
+    >
       {showHamburger && (
         <HeaderMenuButton
           aria-label="Open menu"
           isCollapsible
           className={styles.headerMenuButton}
+          style={headerStyle?.headerMenuButton ? { backgroundColor: headerStyle.headerMenuButton } : {}}
           onClick={(event: React.MouseEvent) => {
             event.stopPropagation();
             toggleSideMenu();
