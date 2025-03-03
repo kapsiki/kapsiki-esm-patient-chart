@@ -47,7 +47,7 @@ export default function GenericDashboard({ basePath }: GenericDashboardProps) {
         title={config.title}
         basePath={basePath}
         icon={config.icon}
-        moduleName="@openmrs/esm-patient-chart-app"
+        moduleName="@kapsiki/esm-patient-chart-app"
       />
     </BrowserRouter>
   );

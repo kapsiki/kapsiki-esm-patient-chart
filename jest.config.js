@@ -36,7 +36,7 @@ module.exports = {
     },
   },
   setupFilesAfterEnv: [path.resolve(__dirname, 'tools', 'setup-tests.ts')],
-  testPathIgnorePatterns: [path.resolve(__dirname, 'packages', 'esm-form-entry-app'), path.resolve(__dirname, 'e2e')],
+  testPathIgnorePatterns: [path.resolve(__dirname, 'packages', 'esm-form-entry-app'), path.resolve(__dirname, 'e2e'), path.resolve(__dirname, 'packages', 'esm-patient-chart-app')],
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
     url: 'http://localhost/',
