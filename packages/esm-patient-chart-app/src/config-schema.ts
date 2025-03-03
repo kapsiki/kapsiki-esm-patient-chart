@@ -148,6 +148,28 @@ export const esmPatientChartSchema = {
     _description: 'Default concept uuid for other in forms',
     _default: '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
   },
+  headerStyle: {
+    backgroundColor: {
+      _type: Type.String,
+      _default: {},
+      _description: 'Patient chart header background color',
+    },
+    patientName: {
+      _type: Type.String,
+      _default: {},
+      _description: 'Patient name text color',
+    },
+    patientInfo: {
+      _type: Type.String,
+      _default: {},
+      _description: 'Patient information text color',
+    },
+    headerMenuButton: {
+      _type: Type.String,
+      _default: {},
+      _description: 'Header menu button background color on small screens',
+    },
+  },
 };
 
 export interface ChartConfig {
@@ -158,6 +180,12 @@ export interface ChartConfig {
     alt: string;
     name: string;
     src: string;
+  };
+  headerStyle: {
+    backgroundColor: object;
+    patientName: object;
+    patientInfo: object;
+    headerMenuButton: object;
   };
   notesConceptUuids: string[];
   numberOfVisitsToLoad: number;

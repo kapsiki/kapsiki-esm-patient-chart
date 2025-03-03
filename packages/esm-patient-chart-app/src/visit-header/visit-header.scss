@@ -6,6 +6,7 @@
 .topNavHeader {
   top: var(--omrs-offline-banner-height);
   @include brand-02(background-color);
+  border-bottom: 1px solid gray;
 }
 
 .headerName {
